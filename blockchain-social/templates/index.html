@@ -1,0 +1,41 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Waghchain</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">🔗 Blockchain Social</div>
+      <div class="row">
+        <div id="network" class="muted small mono"></div>
+        <button id="connectBtn">Connect Wallet</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="row">
+        <textarea id="content" rows="3" placeholder="What's happening?" maxlength="280"></textarea>
+        <button id="postBtn">Post</button>
+      </div>
+      <div class="muted small" id="status"></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="row" style="justify-content: space-between;">
+        <div><strong>Feed</strong></div>
+        <button id="refreshBtn">Refresh</button>
+      </div>
+      <div id="feed" class="list"></div>
+    </div>
+
+    <div class="footer">Built with Solidity + Flask + MetaMask</div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
