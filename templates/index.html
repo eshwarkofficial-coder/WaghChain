@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WaghChain</title>
+  <link rel="stylesheet" href="/static/styles.css">
+   <link rel="icon" type="image/svg" href="{{ url_for('static', filename='logo.svg') }}">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+ <div class="loading-screen">
+    <img src="/static/logo.svg" alt="Loading" class="loading-svg">
+  </div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <img src="/static/logo.svg" alt="logo" />
+        <h1>WaghChain</h1>
+      </div>
+      <div class="actions">
+        <button id="connectBtn">Connect Wallet</button>
+      </div>
+    </header>
+
+    <section class="statusbar">
+      <div id="status">Not connected</div>
+      <div id="network" class="muted small"></div>
+    </section>
+
+    <section class="composer">
+      <textarea id="content" placeholder="type post"></textarea>
+      <button id="postBtn">Post</button>
+    </section>
+
+    <section class="toolbar">
+      <button id="refreshBtn">Refresh Feed</button>
+    </section>
+
+    <section id="feed" class="feed">
+      
+    </section>
+
+   
+  </div>
+
+
+ <script>
+ document.addEventListener("DOMContentLoaded", function() {
+ 
+  setTimeout(function() {
+    const loadingScreen = document.querySelector('.loading-screen');
+    if (loadingScreen) {
+      loadingScreen.style.display = 'none';
+    }
+  }, 4000); 
+});
+ </script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
