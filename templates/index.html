@@ -10,9 +10,22 @@
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
+
  <div class="loading-screen">
     <img src="/static/logo.svg" alt="Loading" class="loading-svg">
   </div>
+  
+  
+<div id="walletModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <img src="/static/logo.svg" alt="Logo" class="modal-logo" />
+    <h2>WaghChain</h2>
+    <p id="modalMessage">Please connect your wallet to continue.</p>
+    <button id="modalConnectBtn">Connect Wallet</button>
+    <button id="modalRetryBtn" style="display:none;">Retry</button>
+  </div>
+</div>
+
   <div class="container">
     <header>
       <div class="brand">
@@ -45,18 +58,43 @@
    
   </div>
 
-
+<script src="/static/app.js"></script>
  <script>
- document.addEventListener("DOMContentLoaded", function() {
- 
-  setTimeout(function() {
-    const loadingScreen = document.querySelector('.loading-screen');
-    if (loadingScreen) {
-      loadingScreen.style.display = 'none';
+
+  document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+      const loadingScreen = document.querySelector('.loading-screen');
+      if (loadingScreen) loadingScreen.style.display = 'none';
+      
+      const walletModal = document.getElementById('walletModal');
+      if (walletModal) walletModal.style.display = 'flex';
+    }, 4000);
+  });
+
+
+
+const walletModal = document.getElementById("walletModal");
+    const modalConnectBtn = document.getElementById("modalConnectBtn");
+    const modalRetryBtn = document.getElementById("modalRetryBtn");
+    const modalMessage = document.getElementById("modalMessage");
+    const container = document.querySelector(".container");
+
+    async function tryConnect() {
+      try {
+        
+        await document.getElementById("connectBtn").click(); 
+        
+        walletModal.style.display = "none";
+        container.style.display = "block";
+      } catch (err) {
+        modalMessage.textContent = "Connection failed. Please retry.";
+        modalRetryBtn.style.display = "inline-block";
+      }
     }
-  }, 4000); 
-});
+
+    modalConnectBtn.addEventListener("click", tryConnect);
+    modalRetryBtn.addEventListener("click", tryConnect);
  </script>
-  <script src="/static/app.js"></script>
+  
 </body>
 </html>

@@ -121,7 +121,7 @@
         <div class="meta">
           <span class="addr" title="${author}">${shortAddr(author)}</span>
           <span class="muted small">${when} • Likes: ${likes}</span>
-          <button class="like" data-id="${i}">❤️ Like</button>
+          <button class="like" data-id="${i}">Like</button>
         </div>
       `;
       card.querySelector('button.like').addEventListener('click', () => likePost(i));
