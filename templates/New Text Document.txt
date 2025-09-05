@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WaghChain - Start</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" type="image/svg" href="{{ url_for('static', filename='logo.svg') }}">
+</head>
+<body>
+  <div class="start-container">
+    <img src="/static/logo.svg" alt="Logo" class="start-logo" />
+    <h1>WaghChain</h1>
+    <p class="tagline">A decentralized way to share your thoughts.</p>
+    <button class="launch-btn" onclick="window.location.href='/index.html'">🚀 Launch</button>
+  </div>
+</body>
+</html>

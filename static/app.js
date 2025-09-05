@@ -1,6 +1,11 @@
 
 (() => {
-  const connectBtn = document.getElementById('connectBtn');
+  const modal = document.getElementById("walletModal");
+  const modalConnectBtn = document.getElementById("modalConnectBtn");
+  const modalRetryBtn = document.getElementById("modalRetryBtn");
+  const modalMessage = document.getElementById("modalMessage");
+  const container = document.querySelector(".container");
+
   const postBtn = document.getElementById('postBtn');
   const refreshBtn = document.getElementById('refreshBtn');
   const statusEl = document.getElementById('status');
@@ -18,7 +23,7 @@
 
   async function loadMeta() {
     const res = await fetch('/contract.json');
-    if (!res.ok) throw new Error('contract.json not found. Run: python scripts/deploy.py');
+    if (!res.ok) throw new Error('contract.json not found. Run: python deploy.py');
     meta = await res.json();
   }
 
@@ -29,12 +34,10 @@
 
       await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-     const provider = new ethers.providers.Web3Provider(window.ethereum);
-	signer = provider.getSigner();
-
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      signer = provider.getSigner();
       const addr = await signer.getAddress();
 
-      // Switch to the chain from contract.json if needed
       const net = await provider.getNetwork();
       const currentChainId = Number(net.chainId);
       if (currentChainId !== Number(meta.chainId)) {
@@ -62,12 +65,18 @@
 
       contract = new ethers.Contract(meta.address, meta.abi, signer);
 
+      // Success → hide modal, show app
+      modal.style.display = "none";
+      container.style.display = "block";
+
       networkEl.textContent = `Connected: ${addr} | chainId=${meta.chainId}`;
       status('Wallet connected.');
       await refresh();
+
     } catch (e) {
       console.error(e);
-      status('Error: ' + (e?.message || e));
+      modalMessage.textContent = "❌ " + (e?.message || e);
+      modalRetryBtn.style.display = "inline-block";
     }
   }
 
@@ -121,7 +130,7 @@
         <div class="meta">
           <span class="addr" title="${author}">${shortAddr(author)}</span>
           <span class="muted small">${when} • Likes: ${likes}</span>
-          <button class="like" data-id="${i}">Like</button>
+          <button class="like" data-id="${i}"> Like </button>
         </div>
       `;
       card.querySelector('button.like').addEventListener('click', () => likePost(i));
@@ -129,7 +138,10 @@
     }
   }
 
-  connectBtn.addEventListener('click', connect);
+ 
+  modalConnectBtn.addEventListener('click', connect);
+  modalRetryBtn.addEventListener('click', connect);
   postBtn.addEventListener('click', createPost);
   refreshBtn.addEventListener('click', refresh);
 })();
+

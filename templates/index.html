@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,95 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WaghChain</title>
   <link rel="stylesheet" href="/static/styles.css">
-   <link rel="icon" type="image/svg" href="{{ url_for('static', filename='logo.svg') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
 
- <div class="loading-screen">
-    <img src="/static/logo.svg" alt="Loading" class="loading-svg">
-  </div>
   
+  <div class="loading-screen">
+    <img src="/static/logo.png" alt="Loading" class="loading-svg">
+  </div>
+
   
-<div id="walletModal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <img src="/static/logo.svg" alt="Logo" class="modal-logo" />
-    <h2>WaghChain</h2>
-    <p id="modalMessage">Please connect your wallet to continue.</p>
-    <button id="modalConnectBtn">Connect Wallet</button>
-    <button id="modalRetryBtn" style="display:none;">Retry</button>
-  </div>
-</div>
-
-  <div class="container">
-    <header>
-      <div class="brand">
-        <img src="/static/logo.svg" alt="logo" />
-        <h1>WaghChain</h1>
-      </div>
-      <div class="actions">
-        <button id="connectBtn">Connect Wallet</button>
-      </div>
-    </header>
-
-    <section class="statusbar">
-      <div id="status">Not connected</div>
-      <div id="network" class="muted small"></div>
-    </section>
-
-    <section class="composer">
-      <textarea id="content" placeholder="type post"></textarea>
-      <button id="postBtn">Post</button>
-    </section>
-
-    <section class="toolbar">
-      <button id="refreshBtn">Refresh Feed</button>
-    </section>
-
-    <section id="feed" class="feed">
+  <div id="walletModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <img src="/static/logo.png" alt="Logo" class="modal-logo" />
+	  <img src="/static/meta.png" alt="Logo" class="modal-logo" />
+      <h2>WaghChain X Metamask</h2>
+      <p id="modalMessage">Please connect your wallet to continue.</p>
+      <button id="modalConnectBtn">Connect Wallet</button>
       
-    </section>
-
-   
+    </div>
   </div>
 
-<script src="/static/app.js"></script>
- <script>
+ 
+  <div class="page">
+    
+    <div class="container">
 
-  document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(function() {
-      const loadingScreen = document.querySelector('.loading-screen');
-      if (loadingScreen) loadingScreen.style.display = 'none';
       
-      const walletModal = document.getElementById('walletModal');
-      if (walletModal) walletModal.style.display = 'flex';
-    }, 4000);
-  });
+      <header>
+        <div class="brand">
+          <img src="/static/logo.png" alt="logo" />
+          <h1>WaghChain</h1>
+        </div>
+        <div class="actions">
+          <button id="connectBtn">Connect Wallet</button>
+        </div>
+      </header>
 
+     
+      <section class="statusbar">
+        <div id="status">Not connected</div>
+        <div id="network" class="muted small"></div>
+      </section>
 
+     
+      <section class="toolbar">
+        <button id="refreshBtn">Refresh Feed</button>
+      </section>
 
-const walletModal = document.getElementById("walletModal");
+         
+    <div class="feed-container">
+      <div id="feed" class="feed"></div>
+    </div>
+
+     
+
+      
+      <footer class="composer">
+        <textarea id="content" placeholder="Type your post..."></textarea>
+        <button id="postBtn">Post</button>
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+
+  <!-- Show modal after loading screen -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(function() {
+        const loadingScreen = document.querySelector('.loading-screen');
+        if (loadingScreen) loadingScreen.style.display = 'none';
+        const walletModal = document.getElementById('walletModal');
+        if (walletModal) walletModal.style.display = 'flex';
+      }, 4000);
+    });
+
+    
+    const walletModal = document.getElementById("walletModal");
     const modalConnectBtn = document.getElementById("modalConnectBtn");
-    const modalRetryBtn = document.getElementById("modalRetryBtn");
+    
     const modalMessage = document.getElementById("modalMessage");
     const container = document.querySelector(".container");
 
     async function tryConnect() {
       try {
         
-        await document.getElementById("connectBtn").click(); 
-        
-        walletModal.style.display = "none";
-        container.style.display = "block";
+        document.getElementById("connectBtn").click();
+       
       } catch (err) {
         modalMessage.textContent = "Connection failed. Please retry.";
-        modalRetryBtn.style.display = "inline-block";
+        
       }
     }
 
     modalConnectBtn.addEventListener("click", tryConnect);
-    modalRetryBtn.addEventListener("click", tryConnect);
- </script>
-  
+   
+  </script>
 </body>
 </html>
